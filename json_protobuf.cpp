@@ -607,7 +607,7 @@ void
 json_protobuf::convert_to_json(const google::protobuf::Message& message,
     std::string& value)
 {
-	Json::Value json_value(Json::objectValue);
+	Json::Value json_value;
 	convert_to_json(message, json_value);
 	value = Json::FastWriter().write(json_value);
 }

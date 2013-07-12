@@ -244,6 +244,36 @@ test2(bool use_string)
 
 }
 
+/**
+ * Testing raw text.
+ */
+void
+test3()
+{
+	const std::string message = "{\"active\":true,\"date_of_birth\":\"1/2/1970\",\"departments\":[\"dept1\",\"dept4\",\"dept9\"],\"first_name\":\"John\",\"hire_date\":1365109914,\"id\":12345,\"last_name\":\"Smith\",\"pay_type\":\"salaried\",\"salary\":1}\n";
+
+	json_protobuf::test::employee employee;
+	json_protobuf::update_from_json(message, employee);
+
+	fail_unless(employee.id() == 12345, "incorrect id");
+	fail_unless(employee.first_name() == "John", "incorrect first name");
+	fail_unless(employee.last_name() == "Smith", "incorrect last name");
+	fail_unless(employee.date_of_birth() == "1/2/1970",
+	    "incorrect birth date");
+	fail_unless(employee.pay_type() ==
+	    json_protobuf::test::employee::salaried, "incorrect pay type");
+	fail_unless(employee.salary() == 1, "incorrect salary");
+	fail_unless(employee.active(), "should be active");
+	fail_unless(employee.hire_date() == 1365109914, "incorrect hire data");
+
+	// NOTE: This relies on JsonCpp FastWriter returning JSON text in the
+	// same format as that used to initial the message variable (this test
+	// may not be true in future versions and need to be adjusted).
+	std::string message2;
+	json_protobuf::convert_to_json(employee, message2);
+	fail_unless(message == message2, "messages not equal");
+}
+
 } // namespace
 
 
@@ -254,6 +284,7 @@ main(int argc, char** argv)
 	test2(false);
 	test1(true);
 	test2(true);
+	test3();
 
 	// This will clean up all memory used by the protobuf library.
 	google::protobuf::ShutdownProtobufLibrary();
