@@ -79,7 +79,7 @@ namespace json_protobuf {
 	 * @throw std::invalid_argument  value does not represent a valid
 	 * JSON object or a JSON field does not match an existing protobuf
 	 * message field
-   */
+	 */
 	void update_from_json(const std::string& value,
 	    google::protobuf::Message& message);
 
