@@ -40,8 +40,8 @@ namespace json_protobuf {
 	 *
 	 * @param msg the protobuf message to convert
 	 * @param value JSON object to hold the converted value
-	 * @throw std::invalid_argumnet  message contains fields that
-	 * can not be converted to JSON
+	 * @throw std::invalid_argumnet protobuf message contains fields
+	 * that can not be converted to JSON
 	 */
 	void convert_to_json(const google::protobuf::Message& message,
 	    Json::Value& value);
@@ -52,7 +52,7 @@ namespace json_protobuf {
 	 *
 	 * @param msg the protobuf message to convert
 	 * @param value JSON object to hold the converted value
-	 * @throw std::invalid_argument  message contains fields that
+	 * @throw std::invalid_argument protobuf message contains fields that
 	 * can not be converted to JSON
 	 */
 	void convert_to_json(const google::protobuf::Message& message,
@@ -64,7 +64,8 @@ namespace json_protobuf {
 	 *
 	 * @param value JSON object to convert
 	 * @param message protobuf message to hold the converted value
-	 * @throw std::invalid_argument
+	 * @throw std::invalid_argument a JSON field does not match an existing protobuf
+	 * message field
 	 */
 	void update_from_json(const Json::Value& value,
 	    google::protobuf::Message& message);
@@ -75,7 +76,9 @@ namespace json_protobuf {
 	 *
 	 * @param value JSON object to convert
 	 * @param message protobuf message to hold the converted value
-	 * @throw std::invalid_argument	 
+	 * @throw std::invalid_argument  value does not represent a valid
+	 * JSON object or a JSON field does not match an existing protobuf
+	 * message field
    */
 	void update_from_json(const std::string& value,
 	    google::protobuf::Message& message);
