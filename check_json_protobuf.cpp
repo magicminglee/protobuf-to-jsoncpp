@@ -31,6 +31,7 @@ OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 #include <stdexcept>
 #include <memory>
 #include <cstdlib>
+#include  <iostream> 
 
 #include "check_protobuf_types.pb.h"
 
@@ -117,14 +118,14 @@ copy_message_with_json(const google::protobuf::Message& m1,
 	if (use_string) {
 		std::string m1_json;
 		json_protobuf::convert_to_json(m1, m1_json);
-		
+
 		m2.Clear();
 		json_protobuf::update_from_json(m1_json, m2);
 
 	} else {
 		Json::Value m1_json;
 		json_protobuf::convert_to_json(m1, m1_json);
-		
+
 		m2.Clear();
 		json_protobuf::update_from_json(m1_json, m2);
 	}
