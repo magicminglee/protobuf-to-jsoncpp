@@ -426,7 +426,7 @@ update_repeated_field(const google::protobuf::Reflection* reflection,
     F1 updater, const Json::Value& value, F2 accessor, F3 checker,
     google::protobuf::Message& message)
 {
-	for (Json::ValueIterator iter = value.begin(); iter != value.end();
+	for (auto iter = value.begin(); iter != value.end();
 	     ++iter) {
 		update_field(reflection, field, updater, *iter,
 		    accessor, checker, message);
@@ -446,7 +446,7 @@ update_repeated_message_field(const google::protobuf::Reflection* reflection,
     const google::protobuf::FieldDescriptor* field,
     const Json::Value& value, google::protobuf::Message& message)
 {
-	for (Json::ValueIterator iter = value.begin(); iter != value.end();
+	for (auto iter = value.begin(); iter != value.end();
 	     ++iter) {
 		google::protobuf::Message* child =
 		    reflection->AddMessage(&message, field);
@@ -468,7 +468,7 @@ update_repeated_enum_field(const google::protobuf::Reflection* reflection,
     const google::protobuf::FieldDescriptor* field,
     const Json::Value& value, google::protobuf::Message& message)
 {
-	for (Json::ValueIterator iter = value.begin(); iter != value.end();
+	for (auto iter = value.begin(); iter != value.end();
 	     ++iter) {
 		update_enum_field(reflection, descriptor, field,
 		    &google::protobuf::Reflection::AddEnum, *iter, message);
@@ -628,7 +628,7 @@ json_protobuf::update_from_json(const Json::Value& value,
 	const google::protobuf::Descriptor* descriptor =
 	    message.GetDescriptor();
 
-	for (Json::ValueIterator iter = value.begin(); iter != value.end();
+	for (auto iter = value.begin(); iter != value.end();
 	     ++iter) {
 		const char* name = iter.memberName();
 
@@ -641,7 +641,7 @@ json_protobuf::update_from_json(const Json::Value& value,
 				"' not found in message");
 		}
 
-		Json::Value& current = *iter;
+		const Json::Value& current = *iter;
 
 		switch (field->label()) {
 		case google::protobuf::FieldDescriptor::LABEL_OPTIONAL:
